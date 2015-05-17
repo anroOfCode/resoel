@@ -1,0 +1,33 @@
+﻿BOOL,AllocConsole,void
+BOOL,AttachConsole,DWORD,dwProcessId
+HANDLE,CreateConsoleScreenBuffer,DWORD,dwDesiredAccess,DWORD,dwShareMode,const SECURITY_ATTRIBUTES*,lpSecurityAttributes,DWORD,dwFLags,LPVOID,lpScreenBufferData
+BOOL,FillConsoleOutputAttribute,HANDLE,hConsoleOutput,WORD,wAttribute,DWORD,nLength,COORD,dwWriteCoord,LPDWORD,lpNumberOfAttrsWritten
+BOOL,FillConsoleOutputCharacterW,HANDLE,hConsoleOutput,WCHAR,cCharacter,DWORD,nLength,COORD,dwWriterCoord,LPDWORD,lpNumberOfCharsWritten
+BOOL,FillConsoleOutputCharacterA,HANDLE,hConsoleOutput,CHAR,cCharacter,DWORD,nLength,COORD,dwWriterCoord,LPDWORD,lpNumberOfCharsWritten
+BOOL,FlushConsoleInputBuffer,HANDLE,hConsoleInput
+BOOL,FreeConsole,void
+BOOL,ScrollConsoleScreenBufferW,HANLDE,hConsoleOutput,const SMALL_RECT*,lpScrollRectangle,const SMALL_RECT*,lpClipRectangle,COORD,dwDestinationOrigin,const CHAR_INFO*,lpFill
+BOOL,ScrollConsoleScreenBufferA,HANLDE,hConsoleOutput,const SMALL_RECT*,lpScrollRectangle,const SMALL_RECT*,lpClipRectangle,COORD,dwDestinationOrigin,const CHAR_INFO*,lpFill
+BOOL,SetConsoleActiveScreenBuffer,HANDLE,hConsoleOutput
+BOOL,SetConsoleCP,UINT,wCodePageID
+BOOL,SetConsoleCtrlHandler,PHANDLER_ROUTINE,HandlerRoutine,BOOL,Add
+BOOL,SetConsoleCursorInfo,HANDLE,hConsoleOutput,const CONSOLE_CURSOR_INFO*,lpConsoleCursorInfo
+BOOL,SetConsoleCursorPosition,HANDLE,hConsoleOutput,COORD,dwCursorPosition
+BOOL,SetConsoleDisplayMode,HANDLE,hConsoleOutput,DWORD,dwFlags,PCOORD,lpNewScreenBufferDimensions
+BOOL,SetConsoleMode,HANDLE,hConsoleHandle,DWORD,dwMode
+BOOL,SetConsoleOutputCP,UINT,wCodePageId
+BOOL,SetConsoleScreenBufferInfoEx,HANDLE,hConsoleOutput,PCONSOLE_SCREEN_BUFFER_INFOEX,lpConsoleScreenBufferInfoEx
+BOOL,SetConsoleScreenBufferSize,HANDLE,hConsoleOutput,COORD,dwSize
+BOOL,SetConsoleTextAttribute,HANDLE,hConsoleOutput,WORD,wAttributes
+BOOL,SetConsoleTitle,LPCTSTR,lpConsoleTitle
+BOOL,SetConsoleWindowInfo,HANDLE,hConsoleOutput,BOOL,bAbsolute,const SMALL_RECT*,lpConsoleWindow
+BOOL,SetCurrentConsoleFontEx,HANDLE,hConsoleOutput,BOOL,bMaximumWindow,PCONSOLE_FONT_INFOEX,lpConsoleCurrentFontEx
+BOOL,SetStdHandle,DWORD,nStdHandle,HANDLE,hHandle
+BOOL,WriteConsoleW,HANDLE,hConsoleOutput,const VOID*,lpBuffer,DWORD,nNumberOfCharsToWrite,LPDWORD,lpNumberOfCharsWritten,LPVOID,lpReserved
+BOOL,WriteConsoleA,HANDLE,hConsoleOutput,const VOID*,lpBuffer,DWORD,nNumberOfCharsToWrite,LPDWORD,lpNumberOfCharsWritten,LPVOID,lpReserved
+BOOL,WriteConsoleOutputW,HANDLE,hConsoleOutput,const CHAR_INFO*,lpBuffer,COORD,dwBufferSize,COORD,dwBufferCoord,PSMALL_RECT,lpWriteRegion
+BOOL,WriteConsoleOutputA,HANDLE,hConsoleOutput,const CHAR_INFO*,lpBuffer,COORD,dwBufferSize,COORD,dwBufferCoord,PSMALL_RECT,lpWriteRegion
+BOOL,WriteConsoleOutputAttribute,HANDLE,hConsoleOutput,const WORD*,lpAttribute,DWORD,nLength,COORD,dwWriteCoord,LPDWORD,lpNumberOfAttrsWritten
+BOOL,WriteConsoleOutputCharacterW,HANDLE,hConsoleOutput,WCHAR*,lpCharacter,DWORD,nLength,COORD,dwWriteCoord,LPDWORD,lpNumberOfCharsWritten
+BOOL,WriteConsoleOutputCharacterA,HANDLE,hConsoleOutput,CHAR*,lpCharacter,DWORD,nLength,COORD,dwWriteCoord,LPDWORD,lpNumberOfCharsWritten
+BOOL,WriteFile,HANDLE,hFile,LPCVOID,lpBuffer,DWORD,nNumberOfBytesToWrite,LPDWORD,lpNumberOfBytesWritten,LPOVERLAPPED,lpOverlapped
