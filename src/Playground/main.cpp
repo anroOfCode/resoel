@@ -1,5 +1,6 @@
 #include <base.h>
 #include <easyhook.h>
+#include <DebugBuffer.h>
 
 namespace ReSoel {
     namespace Win32Hooks{
@@ -135,6 +136,11 @@ int CALLBACK WinMain(
     _In_ int       nCmdShow
     )
 {
+    ReSoel::Utilities::DebugBuffer buffer;
+
+    std::ostream os(&buffer);
+    os << "Hello world" << std::endl;
+
     ReSoel::Win32Hooks::ConsoleHooks::ApplyHooks();
     AllocConsole();
     return 0;

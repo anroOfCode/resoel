@@ -7,6 +7,9 @@
 #include <cassert>
 #include <stdint.h>
 #include <iostream>
+#include <sstream>
+#include <ostream>
+#include <string>
 #include <unordered_map>
 #include <mutex>
 #include <memory>
