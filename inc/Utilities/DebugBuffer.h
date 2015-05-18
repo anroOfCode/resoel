@@ -21,7 +21,7 @@ namespace ReSoel {
             int sync() override try {
                 // This allocates, which isn't ideal, but probably alright for our purposes.
                 OutputDebugStringA(std::string(pbase(), pptr()).c_str());
-                setp(m_buffer.data(), m_buffer.data() + 1, m_buffer.data() + m_buffer.size());
+                setp(m_buffer.data(), m_buffer.data(), m_buffer.data() + m_buffer.size());
                 return 0;
             }
             // We'd really just catch a bad alloc.. 

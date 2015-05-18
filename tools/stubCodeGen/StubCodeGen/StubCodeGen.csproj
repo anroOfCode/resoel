@@ -41,11 +41,62 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CppCodeGenerator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CppCodeGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CppCodeGenerator.g.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CppCodeGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GeneratorHelpers.cs" />
+    <Compile Include="HeaderCodeGenerator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HeaderCodeGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HeaderCodeGenerator.g.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HeaderCodeGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InterfaceCodeGenerator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InterfaceCodeGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InterfaceCodeGenerator.g.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InterfaceCodeGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="CppCodeGenerator.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>CppCodeGenerator.g.cs</LastGenOutput>
+    </None>
+    <None Include="HeaderCodeGenerator.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>HeaderCodeGenerator.g.cs</LastGenOutput>
+    </None>
+    <None Include="InterfaceCodeGenerator.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>InterfaceCodeGenerator.g.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="apis.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

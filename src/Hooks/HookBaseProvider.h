@@ -98,7 +98,10 @@ namespace ReSoel {
 
         template<class T>
         void HookBaseProvider<T>::EnsureInitialized() {
-            if (!m_initialized) m_table = BuildHookTable();
+            if (!m_initialized) {
+                m_table = BuildHookTable();
+                m_initialized = true;
+            }
         }
     }
 }

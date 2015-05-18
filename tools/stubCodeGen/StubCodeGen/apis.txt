@@ -1,13 +1,13 @@
-﻿BOOL,AllocConsole,void
+﻿BOOL,AllocConsole
 BOOL,AttachConsole,DWORD,dwProcessId
 HANDLE,CreateConsoleScreenBuffer,DWORD,dwDesiredAccess,DWORD,dwShareMode,const SECURITY_ATTRIBUTES*,lpSecurityAttributes,DWORD,dwFLags,LPVOID,lpScreenBufferData
 BOOL,FillConsoleOutputAttribute,HANDLE,hConsoleOutput,WORD,wAttribute,DWORD,nLength,COORD,dwWriteCoord,LPDWORD,lpNumberOfAttrsWritten
 BOOL,FillConsoleOutputCharacterW,HANDLE,hConsoleOutput,WCHAR,cCharacter,DWORD,nLength,COORD,dwWriterCoord,LPDWORD,lpNumberOfCharsWritten
 BOOL,FillConsoleOutputCharacterA,HANDLE,hConsoleOutput,CHAR,cCharacter,DWORD,nLength,COORD,dwWriterCoord,LPDWORD,lpNumberOfCharsWritten
 BOOL,FlushConsoleInputBuffer,HANDLE,hConsoleInput
-BOOL,FreeConsole,void
-BOOL,ScrollConsoleScreenBufferW,HANLDE,hConsoleOutput,const SMALL_RECT*,lpScrollRectangle,const SMALL_RECT*,lpClipRectangle,COORD,dwDestinationOrigin,const CHAR_INFO*,lpFill
-BOOL,ScrollConsoleScreenBufferA,HANLDE,hConsoleOutput,const SMALL_RECT*,lpScrollRectangle,const SMALL_RECT*,lpClipRectangle,COORD,dwDestinationOrigin,const CHAR_INFO*,lpFill
+BOOL,FreeConsole
+BOOL,ScrollConsoleScreenBufferW,HANDLE,hConsoleOutput,const SMALL_RECT*,lpScrollRectangle,const SMALL_RECT*,lpClipRectangle,COORD,dwDestinationOrigin,const CHAR_INFO*,lpFill
+BOOL,ScrollConsoleScreenBufferA,HANDLE,hConsoleOutput,const SMALL_RECT*,lpScrollRectangle,const SMALL_RECT*,lpClipRectangle,COORD,dwDestinationOrigin,const CHAR_INFO*,lpFill
 BOOL,SetConsoleActiveScreenBuffer,HANDLE,hConsoleOutput
 BOOL,SetConsoleCP,UINT,wCodePageID
 BOOL,SetConsoleCtrlHandler,PHANDLER_ROUTINE,HandlerRoutine,BOOL,Add
@@ -19,7 +19,8 @@ BOOL,SetConsoleOutputCP,UINT,wCodePageId
 BOOL,SetConsoleScreenBufferInfoEx,HANDLE,hConsoleOutput,PCONSOLE_SCREEN_BUFFER_INFOEX,lpConsoleScreenBufferInfoEx
 BOOL,SetConsoleScreenBufferSize,HANDLE,hConsoleOutput,COORD,dwSize
 BOOL,SetConsoleTextAttribute,HANDLE,hConsoleOutput,WORD,wAttributes
-BOOL,SetConsoleTitle,LPCTSTR,lpConsoleTitle
+BOOL,SetConsoleTitleW,WCHAR*,lpConsoleTitle
+BOOL,SetConsoleTitleA,CHAR*,lpConsoleTitle
 BOOL,SetConsoleWindowInfo,HANDLE,hConsoleOutput,BOOL,bAbsolute,const SMALL_RECT*,lpConsoleWindow
 BOOL,SetCurrentConsoleFontEx,HANDLE,hConsoleOutput,BOOL,bMaximumWindow,PCONSOLE_FONT_INFOEX,lpConsoleCurrentFontEx
 BOOL,SetStdHandle,DWORD,nStdHandle,HANDLE,hHandle
