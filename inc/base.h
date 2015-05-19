@@ -1,9 +1,12 @@
 #pragma once 
 
+// Windows header files...
 #include <windows.h>
 #include <winnt.h>
 #include <winternl.h>
 
+// STL stuff...
+#include <exception>
 #include <cassert>
 #include <stdint.h>
 #include <iostream>
@@ -19,3 +22,5 @@
 
 #define ENSURE_NTSUCCESS(f) \
     { if (!SUCCEEDED(f)) assert(false); }
+
+typedef std::shared_ptr<void> SharedHandle;

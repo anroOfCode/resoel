@@ -50,27 +50,32 @@ namespace ReSoel {
         };
 
         template<class T>
-        void HookBaseProvider<T>::ApplyHooks() {
+        void HookBaseProvider<T>::ApplyHooks() 
+        {
             GetInstance().Hook();
         }
 
         template<class T>
-        void HookBaseProvider<T>::UnapplyHooks() {
+        void HookBaseProvider<T>::UnapplyHooks() 
+        {
             GetInstance().Unhook();
         }
 
         template<class T>
-        void HookBaseProvider<T>::SetDebugMode(bool mode) {
+        void HookBaseProvider<T>::SetDebugMode(bool mode) 
+        {
             GetInstance().m_debugMode = mode;
         }
 
         template<class T>
-        HookBaseProvider<T>::~HookBaseProvider() {
+        HookBaseProvider<T>::~HookBaseProvider() 
+        {
             if (m_hooked) Unhook();
         }
 
         template<class T>
-        void HookBaseProvider<T>::Hook() {
+        void HookBaseProvider<T>::Hook() 
+        {
             assert(!m_hooked);
             for (auto& entry : m_table) {
                 // We don't really worry about DLL handles leaking- we want to keep the DLL loaded into memory for the duration of the
@@ -87,7 +92,8 @@ namespace ReSoel {
         }
 
         template<class T>
-        void HookBaseProvider<T>::Unhook() {
+        void HookBaseProvider<T>::Unhook() 
+        {
             assert(m_hooked);
             for (auto& entry : m_table) {
                 ENSURE_NTSUCCESS(::LhUninstallHook(&std::get<3>(entry)));
@@ -97,7 +103,8 @@ namespace ReSoel {
         }
 
         template<class T>
-        void HookBaseProvider<T>::EnsureInitialized() {
+        void HookBaseProvider<T>::EnsureInitialized() 
+        {
             if (!m_initialized) {
                 m_table = BuildHookTable();
                 m_initialized = true;

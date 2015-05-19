@@ -141,10 +141,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\Playground\main.cpp" />
+    <ClCompile Include="..\src\Server\main.cpp" />
+    <ClCompile Include="..\src\Server\Program.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\inc\Server\Program.h" />
+    <ClInclude Include="..\src\Server\Program.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

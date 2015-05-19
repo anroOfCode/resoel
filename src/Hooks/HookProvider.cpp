@@ -3,19 +3,23 @@
 
 namespace ReSoel {
     namespace Hooks {
-        void ApplyHooks() {
+        void ApplyHooks() 
+        {
             GeneratedTrampolines::ApplyHooks();
         }
 
-        void UnapplyHooks() {
+        void UnapplyHooks() 
+        {
             GeneratedTrampolines::UnapplyHooks();
         }
 
-        void SetDebugMode(bool mode) {
+        void SetDebugMode(bool mode) 
+        {
             GeneratedTrampolines::SetDebugMode(mode);
         }
 
-        void SetTrampolineClient(std::shared_ptr<ITrampolineClient> client) {
+        void SetTrampolineClient(std::shared_ptr<ITrampolineClient> client) 
+        {
             GeneratedTrampolines::SetTrampolineClient(std::move(client));
         }
     }

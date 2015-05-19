@@ -2,7 +2,8 @@
 
 namespace ReSoel {
     namespace Hooks {
-        void GeneratedTrampolines::SetTrampolineClient(std::shared_ptr<ITrampolineClient> client) {
+        void GeneratedTrampolines::SetTrampolineClient(std::shared_ptr<ITrampolineClient> client) 
+        {
             GetInstance().m_client = std::move(client);
         }
 
