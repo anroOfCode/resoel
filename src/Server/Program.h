@@ -20,6 +20,7 @@ namespace ReSoel {
             SharedHandle StartProcess(const std::string& workingPath, const std::string& programName, const std::string& arguments) const;
             void AttachConsoleHooks(bool suspended);
             bool Is64BitProcess() const;
+            void* GetLoadLibraryAddress() const;
             SharedHandle m_process;
 
             // Debug / informational purposes.

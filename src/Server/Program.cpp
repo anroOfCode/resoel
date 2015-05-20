@@ -1,6 +1,7 @@
 #include "Program.h"
 #include <Utilities\CharacterConverter.h>
 #include <easyhook.h>
+#include <DbgHelp.h>
 
 namespace ReSoel {
     namespace Server {
@@ -46,7 +47,7 @@ namespace ReSoel {
             if (!CreateProcessW(
                 &wProgramName[0],
                 &wArguments[0],
-                nullptr, nullptr, FALSE, CREATE_NEW_CONSOLE | CREATE_SUSPENDED, nullptr,
+                nullptr, nullptr, FALSE, CREATE_NEW_CONSOLE, nullptr,
                 wWorkingPath.c_str()[0] == 0 ? nullptr : &wWorkingPath[0],
                 &startInfo, &processInfo)) {
                 throw ReSoel::Utilities::ProcessException("Call to CreateProcessW failed.");
@@ -63,11 +64,20 @@ namespace ReSoel {
             return !!is64Bit;
         }
 
+        BOOL CALLBACK EnumModules(
+            PCSTR  ModuleName,
+            DWORD64 BaseOfDll,
+            PVOID   UserContext)
+        {
+            UNREFERENCED_PARAMETER(UserContext);
+            return TRUE;
+        }
+
         void Program::AttachConsoleHooks(bool suspended)
         {
-            // Figure out if we're 64-bit or a 32-bit processs and then generate
-            // the right code block in memory...
 
+
+            std::cout << "Here we are." << std::endl;
             // - Use DbgHelp module information to locate the address of LoadLibraryA
             // - Pass it as the entry point to CreateRemoteThread
             // - Alloc a string to the 32-bit or 64-bit hook client in the remote DLL
@@ -76,5 +86,28 @@ namespace ReSoel {
             //auto remoteThread = CreateRemoteThread(
             //    m_process.get(), nullptr, 0, START, PARAM, 0, nullptr);
         }
+
+        void* Program::GetLoadLibraryAddress() const
+        {
+            SymSetOptions(SymGetOptions() | SYMOPT_INCLUDE_32BIT_MODULES);
+            if (!SymInitialize(m_process.get(), nullptr, true))
+                throw ReSoel::Utilities::ProcessException("Failed to load debug information.");
+
+            ULONG64 buffer[(sizeof(SYMBOL_INFO) +
+                MAX_SYM_NAME * sizeof(TCHAR) +
+                sizeof(ULONG64) - 1) /
+                sizeof(ULONG64)];
+            PSYMBOL_INFO pSymbol = (PSYMBOL_INFO)buffer;
+            pSymbol->SizeOfStruct = sizeof(SYMBOL_INFO);
+            pSymbol->MaxNameLen = MAX_SYM_NAME;
+
+            if (!SymFromName(m_process.get(), "LoadLibraryA", pSymbol))
+                throw ReSoel::Utilities::ProcessException("Failed to load debug information.");
+
+            // FUTURE: RAII wrapper here to properly cleanup DbgHelp.
+            SymCleanup(m_process.get());
+            return reinterpret_cast<void*>(pSymbol->Address);
+        }
+
     }
 }
