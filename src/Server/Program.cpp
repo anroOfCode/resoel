@@ -57,39 +57,34 @@ namespace ReSoel {
 
         bool Program::Is64BitProcess() const
         {
-            BOOL is64Bit = FALSE;
-            if (!IsWow64Process(m_process.get(), &is64Bit)) {
+            BOOL is32Bit = FALSE;
+            if (!IsWow64Process(m_process.get(), &is32Bit)) {
                 throw ReSoel::Utilities::ProcessException("Call to IsWow64Process failed.");
             }
-            return !!is64Bit;
-        }
-
-        BOOL CALLBACK EnumModules(
-            PCSTR  ModuleName,
-            DWORD64 BaseOfDll,
-            PVOID   UserContext)
-        {
-            UNREFERENCED_PARAMETER(UserContext);
-            return TRUE;
+            return !is32Bit;
         }
 
         void Program::AttachConsoleHooks(bool suspended)
         {
+            void* loadLibraryAddress = GetLoadLibraryAddress();
+            const char* moduleName = Is64BitProcess() ? "ReSoel.Client64.dll" : "ReSoel.Client32.dll";
+            
+            void* remoteAlloc = VirtualAllocEx(m_process.get(), nullptr, strlen(moduleName), MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
+            if (!remoteAlloc) 
+                throw ReSoel::Utilities::ProcessException("Failed to allocate RemoteInjection buffer.");
 
+            if (!WriteProcessMemory(m_process.get(), remoteAlloc, moduleName, strlen(moduleName), nullptr))
+                throw ReSoel::Utilities::ProcessException("Failed to write to RemoteInjection buffer.");
 
-            std::cout << "Here we are." << std::endl;
-            // - Use DbgHelp module information to locate the address of LoadLibraryA
-            // - Pass it as the entry point to CreateRemoteThread
-            // - Alloc a string to the 32-bit or 64-bit hook client in the remote DLL
-            // - Let it all rip.
-
-            //auto remoteThread = CreateRemoteThread(
-            //    m_process.get(), nullptr, 0, START, PARAM, 0, nullptr);
+            // FUTURE: Synchronize on this remote thread handle.
+            HANDLE remoteThread = CreateRemoteThread(
+                m_process.get(), nullptr, 0, (LPTHREAD_START_ROUTINE)loadLibraryAddress, remoteAlloc, 0, nullptr);
         }
 
         void* Program::GetLoadLibraryAddress() const
         {
             SymSetOptions(SymGetOptions() | SYMOPT_INCLUDE_32BIT_MODULES);
+            // FUTURE: Synchronize on remote process DLL load, perhaps using initial debug break?
             if (!SymInitialize(m_process.get(), nullptr, true))
                 throw ReSoel::Utilities::ProcessException("Failed to load debug information.");
 
