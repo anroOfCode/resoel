@@ -11,14 +11,21 @@ namespace ReSoel {
         class Program
         {
         public:
-            Program(const std::string& workingPath, const std::string& programName, const std::string& arguments);
+            Program(std::string workingPath, std::string programName, std::string arguments);
             Program(SharedHandle process);
             Program(const Program&) = delete;
+            ~Program();
 
         private:
             SharedHandle StartProcess(const std::string& workingPath, const std::string& programName, const std::string& arguments) const;
-            void AttachConsoleHooks();
+            void AttachConsoleHooks(bool suspended);
+            bool Is64BitProcess() const;
             SharedHandle m_process;
+
+            // Debug / informational purposes.
+            std::string m_workingPath;
+            std::string m_programName;
+            std::string m_arguments;
         };
 
     }

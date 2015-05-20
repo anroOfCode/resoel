@@ -13,9 +13,18 @@ namespace ReSoel {
         class ProcessException 
             : public std::exception
         {
+        public:
+            ProcessException() = default;
+            ProcessException(const char* whatText)
+                : m_whatText(whatText)
+            {}
+
+        private:
+            const char* m_whatText = nullptr;
             virtual const char* what() const throw()
             {
-                return "An error has occurred establishing communication with the process";
+                return m_whatText ? m_whatText : 
+                    "An error has occurred establishing communication with the process";
             }
         };
     }
