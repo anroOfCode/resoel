@@ -2,6 +2,9 @@
 #include <Utilities\CharacterConverter.h>
 #include <easyhook.h>
 #include <DbgHelp.h>
+#include <Shlwapi.h>
+
+#pragma comment(lib, "shlwapi.lib")
 
 namespace ReSoel {
     namespace Server {
@@ -67,13 +70,14 @@ namespace ReSoel {
         void Program::AttachConsoleHooks(bool suspended)
         {
             void* loadLibraryAddress = GetLoadLibraryAddress();
-            const char* moduleName = Is64BitProcess() ? "ReSoel.Client64.dll" : "ReSoel.Client32.dll";
+            auto moduleName = GetFullPathOfResoelModule(Is64BitProcess() ? "ReSoel.Client.dll" : 
+				"ReSoel.Client32.dll");
             
-            void* remoteAlloc = VirtualAllocEx(m_process.get(), nullptr, strlen(moduleName), MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
+            void* remoteAlloc = VirtualAllocEx(m_process.get(), nullptr, strlen(moduleName.c_str()), MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
             if (!remoteAlloc) 
                 throw ReSoel::Utilities::ProcessException("Failed to allocate RemoteInjection buffer.");
 
-            if (!WriteProcessMemory(m_process.get(), remoteAlloc, moduleName, strlen(moduleName), nullptr))
+            if (!WriteProcessMemory(m_process.get(), remoteAlloc, moduleName.c_str(), strlen(moduleName.c_str()), nullptr))
                 throw ReSoel::Utilities::ProcessException("Failed to write to RemoteInjection buffer.");
 
             // FUTURE: Synchronize on this remote thread handle.
@@ -103,6 +107,15 @@ namespace ReSoel {
             SymCleanup(m_process.get());
             return reinterpret_cast<void*>(pSymbol->Address);
         }
+
+		std::string Program::GetFullPathOfResoelModule(const char* moduleName) const
+		{
+			std::string ret(MAX_PATH, 0);
+			DWORD length = GetModuleFileNameA(nullptr, &ret[0], ret.size());
+			PathRemoveFileSpecA(&ret[0]);
+			PathAppendA(&ret[0], moduleName);
+			return ret;
+		}
 
     }
 }

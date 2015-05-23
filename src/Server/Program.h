@@ -21,6 +21,7 @@ namespace ReSoel {
             void AttachConsoleHooks(bool suspended);
             bool Is64BitProcess() const;
             void* GetLoadLibraryAddress() const;
+			std::string GetFullPathOfResoelModule(const char* moduleName) const;
             SharedHandle m_process;
 
             // Debug / informational purposes.
