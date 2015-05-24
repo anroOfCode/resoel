@@ -5,29 +5,55 @@
 
 namespace ReSoel {
     namespace Server {
+		namespace ProcessHelpers {
+            void AttachConsoleHooks(HANDLE process, void* loadLibraryAddress, bool suspended);
+            bool Is64BitProcess(HANDLE process);
+			void* GetLoadLibraryAddress(HANDLE process, HANDLE kernel32FileHandle, DWORD64 baseAddress, DWORD moduleLength);
+			std::string GetFullPathOfResoelModule(const char* moduleName);
+		}
+
+		class AttachProcessInjector
+		{
+		public:
+			AttachProcessInjector(SharedHandle process);
+			AttachProcessInjector(const AttachProcessInjector&) = delete;
+			SharedHandle GetProcessHandle();
+
+		private:
+			SharedHandle m_process;
+		};
+
+		class CreateProcessInjector
+		{
+		public:
+			CreateProcessInjector(std::string workingPath, std::string programName, std::string arguments);
+			CreateProcessInjector(const CreateProcessInjector&) = delete;
+			SharedHandle GetProcessHandle();
+
+		private:
+            SharedHandle StartProcess(const std::string& workingPath, const std::string& programName, const std::string& arguments) const;
+			struct InitialDebugInfo {
+				DWORD ProcessId;
+				DWORD ThreadId;
+				void* LoadLibraryAPtr;
+			};
+			InitialDebugInfo WaitForLoadLibraryModuleLoad() const;
+
+            SharedHandle m_process;
+			SharedHandle m_remoteMainThread;
+		};
 
         // Represents a child process of the ReSoel server application, with
         // its input and output console handles hooked. 
         class Program
         {
         public:
-            Program(std::string workingPath, std::string programName, std::string arguments);
             Program(SharedHandle process);
             Program(const Program&) = delete;
             ~Program();
 
         private:
-            SharedHandle StartProcess(const std::string& workingPath, const std::string& programName, const std::string& arguments) const;
-            void AttachConsoleHooks(bool suspended);
-            bool Is64BitProcess() const;
-            void* GetLoadLibraryAddress() const;
-			std::string GetFullPathOfResoelModule(const char* moduleName) const;
-            SharedHandle m_process;
-
-            // Debug / informational purposes.
-            std::string m_workingPath;
-            std::string m_programName;
-            std::string m_arguments;
+			SharedHandle m_process;
         };
 
     }
