@@ -30,14 +30,25 @@ namespace ReSoel {
 				return ret;
 			}
 
+			void* GetLoadLibraryAddress(HANDLE process)
+			{
+				return GetLoadLibraryAddress(process, nullptr, 0, 0);
+			}
+
 			void* GetLoadLibraryAddress(HANDLE process, HANDLE kernel32FileHandle, DWORD64 baseAddress, DWORD moduleLength)
 			{
 				SymSetOptions(SymGetOptions() | SYMOPT_INCLUDE_32BIT_MODULES);
 				if (!SymInitialize(process, nullptr, true))
 					throw ReSoel::Utilities::ProcessException("Failed to load debug information.");
 
-				if (!SymLoadModuleEx(process, kernel32FileHandle, nullptr, nullptr, baseAddress, moduleLength, nullptr, 0))
-					throw ReSoel::Utilities::ProcessException("Failed to load kernel32 debug export information.");
+				// If we passed in information from the LOAD_DLL_DEBUG event then we're responsible
+				// for loading the module ourselves, otherwise we can rely on SymInitialize's invasive
+				// attach model to load export symbols.
+				if (kernel32FileHandle != nullptr && baseAddress != 0 && moduleLength != 0)
+				{
+					if (!SymLoadModuleEx(process, kernel32FileHandle, nullptr, nullptr, baseAddress, moduleLength, nullptr, 0))
+						throw ReSoel::Utilities::ProcessException("Failed to load kernel32 debug export information.");
+				}
 
 				ULONG64 buffer[(sizeof(SYMBOL_INFO)+
 					MAX_SYM_NAME * sizeof(TCHAR)+
@@ -72,6 +83,15 @@ namespace ReSoel {
 				HANDLE remoteThread = CreateRemoteThread(
 					process, nullptr, 0, (LPTHREAD_START_ROUTINE)loadLibraryAddress, remoteAlloc, 0, nullptr);
 			}
+		}
+
+		AttachProcessInjector::AttachProcessInjector(DWORD pid)
+		{
+			m_process = std::shared_ptr<void>(OpenProcess(PROCESS_ALL_ACCESS, TRUE, pid), CloseHandle);
+			if (!m_process)
+				throw ReSoel::Utilities::ProcessException("Unable to open process handle from process id.");
+			ProcessHelpers::AttachConsoleHooks(m_process.get(), 
+				ProcessHelpers::GetLoadLibraryAddress(m_process.get()), false);
 		}
 
 		AttachProcessInjector::AttachProcessInjector(SharedHandle process)

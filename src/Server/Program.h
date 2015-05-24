@@ -8,6 +8,7 @@ namespace ReSoel {
 		namespace ProcessHelpers {
             void AttachConsoleHooks(HANDLE process, void* loadLibraryAddress, bool suspended);
             bool Is64BitProcess(HANDLE process);
+			void* GetLoadLibraryAddress(HANDLE process);
 			void* GetLoadLibraryAddress(HANDLE process, HANDLE kernel32FileHandle, DWORD64 baseAddress, DWORD moduleLength);
 			std::string GetFullPathOfResoelModule(const char* moduleName);
 		}
@@ -15,6 +16,7 @@ namespace ReSoel {
 		class AttachProcessInjector
 		{
 		public:
+			AttachProcessInjector(DWORD pid);
 			AttachProcessInjector(SharedHandle process);
 			AttachProcessInjector(const AttachProcessInjector&) = delete;
 			SharedHandle GetProcessHandle();
@@ -38,9 +40,7 @@ namespace ReSoel {
 				void* LoadLibraryAPtr;
 			};
 			InitialDebugInfo WaitForLoadLibraryModuleLoad() const;
-
             SharedHandle m_process;
-			SharedHandle m_remoteMainThread;
 		};
 
         // Represents a child process of the ReSoel server application, with
