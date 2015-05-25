@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.21220.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "reSoel.Terminal", "build\reSoel.Terminal.vcxproj", "{1E45663D-F371-4733-85B7-941A8D9CE364}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ReSoel.Client", "build\ReSoel.Client.vcxproj", "{B30FE86D-460A-4F40-98FE-135BAA94969F}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "reSoel.Server", "build\reSoel.Server.vcxproj", "{87598C98-8346-43C4-89E5-F3EB9570AA9B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ReSoel.Rpc", "build\ReSoel.Rpc.vcxproj", "{E44E9105-ADCE-44C8-8F39-9EC656CD3253}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,6 +85,18 @@ Global
 		{87598C98-8346-43C4-89E5-F3EB9570AA9B}.Release|Win32.Build.0 = Release|Win32
 		{87598C98-8346-43C4-89E5-F3EB9570AA9B}.Release|x64.ActiveCfg = Release|x64
 		{87598C98-8346-43C4-89E5-F3EB9570AA9B}.Release|x64.Build.0 = Release|x64
+		{E44E9105-ADCE-44C8-8F39-9EC656CD3253}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{E44E9105-ADCE-44C8-8F39-9EC656CD3253}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{E44E9105-ADCE-44C8-8F39-9EC656CD3253}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E44E9105-ADCE-44C8-8F39-9EC656CD3253}.Debug|Win32.Build.0 = Debug|Win32
+		{E44E9105-ADCE-44C8-8F39-9EC656CD3253}.Debug|x64.ActiveCfg = Debug|x64
+		{E44E9105-ADCE-44C8-8F39-9EC656CD3253}.Debug|x64.Build.0 = Debug|x64
+		{E44E9105-ADCE-44C8-8F39-9EC656CD3253}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{E44E9105-ADCE-44C8-8F39-9EC656CD3253}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{E44E9105-ADCE-44C8-8F39-9EC656CD3253}.Release|Win32.ActiveCfg = Release|Win32
+		{E44E9105-ADCE-44C8-8F39-9EC656CD3253}.Release|Win32.Build.0 = Release|Win32
+		{E44E9105-ADCE-44C8-8F39-9EC656CD3253}.Release|x64.ActiveCfg = Release|x64
+		{E44E9105-ADCE-44C8-8F39-9EC656CD3253}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
