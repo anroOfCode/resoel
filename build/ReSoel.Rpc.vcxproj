@@ -19,9 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\idl\ResoelRpc.acf" />
-  </ItemGroup>
-  <ItemGroup>
     <Midl Include="..\idl\ResoelRpc.idl">
       <GenerateTypeLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
       </GenerateTypeLibrary>
@@ -127,6 +124,7 @@
     <Midl>
       <TypeLibraryName />
       <HeaderFileName />
+      <ApplicationConfigurationMode>true</ApplicationConfigurationMode>
     </Midl>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

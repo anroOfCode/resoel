@@ -64,7 +64,7 @@
     <NuGetPackageImportStamp>9622f042</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup>
-    <IncludePath>..\external\easyHook;..\inc;$(IncludePath)</IncludePath>
+    <IncludePath>..\external\easyHook;..\inc;..\idl;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)\build\$(Platform)\$(Configuration)\</OutDir>
@@ -105,7 +105,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>..\external\easyhook\EasyHook64.lib;dbghelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>..\external\easyhook\EasyHook64.lib;dbghelp.lib;rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
     <CustomBuildStep>
@@ -154,9 +154,11 @@
   <ItemGroup>
     <ClCompile Include="..\src\Server\main.cpp" />
     <ClCompile Include="..\src\Server\Program.cpp" />
+    <ClCompile Include="..\src\Server\RpcImpl.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Server\Program.h" />
+    <ClInclude Include="..\src\Server\RpcImpl.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

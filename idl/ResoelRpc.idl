@@ -1,6 +1,7 @@
 [
     uuid(ba209999-0c6c-11d2-97cf-00c04f8eea45),
-    version(1.0)
+    version(1.0),
+    implicit_handle(handle_t resoel_IfHandle)
 ]
 interface ResoelRpc 
 {

@@ -67,7 +67,7 @@
     <NuGetPackageImportStamp>9622f042</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup>
-    <IncludePath>..\external\easyHook;..\inc;$(IncludePath)</IncludePath>
+    <IncludePath>..\external\easyHook;..\inc;..\idl;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)\build\$(Platform)\$(Configuration)\</OutDir>
@@ -95,7 +95,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>..\external\easyhook\EasyHook32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>..\external\easyhook\EasyHook32.lib;rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -108,7 +108,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>..\external\easyhook\EasyHook64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>..\external\easyhook\EasyHook64.lib;rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -148,9 +148,11 @@
   <ItemGroup>
     <ClCompile Include="..\src\Client\ConsoleHooks.cpp" />
     <ClCompile Include="..\src\Client\DllMain.cpp" />
+    <ClCompile Include="..\src\Client\RpcClientImpl.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Client\ConsoleHooks.h" />
+    <ClInclude Include="..\src\Client\RpcClientImpl.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="ReSoel.Hooks.vcxproj">

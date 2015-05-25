@@ -23,4 +23,7 @@
 #define ENSURE_NTSUCCESS(f) \
     { if (!SUCCEEDED(f)) assert(false); }
 
+#define ENSURE_SUCCESS(f) \
+    { if (f) assert(false); }
+
 typedef std::shared_ptr<void> SharedHandle;
